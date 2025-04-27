@@ -77,6 +77,22 @@ https://github.com/miyamo2/hotpepper-gourmet-mcp-server/releases/latest
 
 ホットペッパーグルメのジャンルマスタAPIを実行します。
 
+#### `dinner_budget_master_search`
+
+ホットペッパーグルメの検索用ディナー予算マスタAPIを実行します。
+
+#### `large_service_area_master_search`
+
+ホットペッパーグルメの大サービスエリアマスタAPIを実行します。
+
+#### `service_area_master_search`
+
+ホットペッパーグルメのサービスエリアマスタAPIを実行します。
+
+#### `credit_card_master_search`
+
+ホットペッパーグルメのクレジットカードマスタAPIを実行します。
+
 ### リソース
 
 #### `dinner_budget_master`
