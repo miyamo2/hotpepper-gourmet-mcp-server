@@ -42,7 +42,7 @@ https://github.com/miyamo2/hotpepper-gourmet-mcp-server/releases/latest
     "hotpepper-gourmet-mcp-server": {
       "command": "hotpepper-gourmet-mcp-server",
       "env": {
-        "HOTPEPPER_GOURMET_API_KEY": "<Hotpepper Gourmet API Key>",
+        "HOTPEPPER_GOURMET_API_KEY": "<Hotpepper Gourmet API Key>"
       }
     }
   }
