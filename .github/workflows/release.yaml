@@ -28,7 +28,7 @@ jobs:
       - name: Extract Version
         id: versioning
         run: |
-          VERSION="v$(sed -n 's/##\s\([0-9.]*\)\s.*/\1/p' CHANGELOG.md | head -1)"
+          VERSION="v$(sed -n 's/##\s\([0-9.]\+\(-\(alpha\|beta\)\.[0-9]\+\)\?\)\s.*/\1/p' CHANGELOG.md | head -1)"
           echo ::set-output name=version::$VERSION
 
       - name: Extract changes from prev version
