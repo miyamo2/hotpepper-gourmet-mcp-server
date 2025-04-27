@@ -11,7 +11,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     env:
-      GO_VERSION: "1.24.0"
+      GO_VERSION: "1.24"
 
     steps:
       - uses: Kesin11/actions-timeline@427ee2cf860166e404d0d69b4f2b24012bb7af4f # v2.2.3
@@ -55,6 +55,14 @@ jobs:
           git tag ${{ steps.versioning.outputs.version }}
           git push origin ${{ steps.versioning.outputs.version }}
 
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1.12.0
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: miyamo2
+
       - uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # v6.3.0
         with:
           workdir: .github/
@@ -62,4 +70,4 @@ jobs:
           args: release --clean --release-notes=/tmp/diff-changelog.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEBREW_TAP_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          HOMEBREW_TAP_TOKEN: ${{ steps.generate-token.outputs.token }}
