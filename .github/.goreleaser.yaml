@@ -44,9 +44,6 @@ brews:
       owner: miyamo2
       name: homebrew-tap
       token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
-      pull_request:
-        # Whether to enable it or not.
-        enabled: true
 
 release:
   footer: >-
