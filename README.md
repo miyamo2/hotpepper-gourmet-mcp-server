@@ -1,7 +1,8 @@
 # hotpepper-gourmet-mcp-server
 
 ホットペッパーグルメ MCP Server  
-このアプリケーションは[ホットペッパーグルメのAPI](https://webservice.recruit.co.jp/doc/hotpepper/reference.html)を利用した非公式のMCPサーバーです。
+
+このアプリケーションは株式会社リクルートの提供する[リクルートWEBサービス ホットペッパーグルメ](https://webservice.recruit.co.jp/doc/hotpepper/reference.html)を利用した非公式のMCPサーバーです。
 
 ## クイックスタート
 
@@ -25,9 +26,9 @@ https://github.com/miyamo2/hotpepper-gourmet-mcp-server/releases/latest
 
 ### 使い方
 
-#### 1. ホットペッパーグルメAPIのAPIキーを取得する
+#### 1. リクルートWEBサービスのAPIキーを取得する
 
-ホットペッパーグルメAPIのAPIキーを取得するには[こちら](https://webservice.recruit.co.jp/register)から申請してください。
+リクルートWEBサービスのAPIキーを取得するには[こちら](https://webservice.recruit.co.jp/register)から申請してください。
 
 #### 2. MCPサーバーを設定する
 
@@ -54,45 +55,45 @@ https://github.com/miyamo2/hotpepper-gourmet-mcp-server/releases/latest
 
 #### `gourment_search` 
 
-ホットペッパーグルメAPIのグルメサーチAPIを実行します。
+ホットペッパーグルメのグルメサーチAPIを実行します。
 
 #### `shop_search`
 
-ホットペッパーグルメAPIの店名サーチAPIを実行します。
+ホットペッパーグルメの店名サーチAPIを実行します。
 
 #### `large_area_search`
 
-ホットペッパーグルメAPIの大エリアマスタAPIを実行します。
+ホットペッパーグルメの大エリアマスタAPIを実行します。
 
 #### `middle_area_search`
 
-ホットペッパーグルメAPIの中エリアマスタAPIを実行します。
+ホットペッパーグルメの中エリアマスタAPIを実行します。
 
 #### `small_area_search`
 
-ホットペッパーグルメAPIの小エリアマスタAPIを実行します。
+ホットペッパーグルメの小エリアマスタAPIを実行します。
 
 #### `genre_search`
 
-ホットペッパーグルメAPIのジャンルマスタAPIを実行します。
+ホットペッパーグルメのジャンルマスタAPIを実行します。
 
 ### リソース
 
 #### `dinner_budget_master`
 
-ホットペッパーグルメAPIの検索用ディナー予算マスタを取得します。
+ホットペッパーグルメの検索用ディナー予算マスタを取得します。
 
 #### `large_service_area_master`
 
-ホットペッパーグルメAPIの大サービスエリアマスタを取得します。
+ホットペッパーグルメの大サービスエリアマスタを取得します。
 
 #### `service_area_master`
 
-ホットペッパーグルメAPIのサービスエリアマスタを取得します。
+ホットペッパーグルメのサービスエリアマスタを取得します。
 
 #### `credit_card_master`
 
-ホットペッパーグルメAPIのクレジットカードマスタを取得します。
+ホットペッパーグルメのクレジットカードマスタを取得します。
 
 ## ライセンス
 
