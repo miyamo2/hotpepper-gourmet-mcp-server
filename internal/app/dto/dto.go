@@ -49,3 +49,15 @@ type GenreSearchInput = model.GenreSearchParam
 
 // Genre is an output dto for genre information.
 type Genre = model.Genre
+
+// DinnerBudgetMasterSearchInput is an input dto for dinner budget master search parameters.
+type DinnerBudgetMasterSearchInput = model.DinnerBudgetMasterSearchParam
+
+// LargeServiceAreaMasterSearchInput is an input dto for large service area master search parameters.
+type LargeServiceAreaMasterSearchInput = model.LargeServiceAreaMasterSearchParam
+
+// ServiceAreaMasterSearchInput is an input dto for service area master search parameters.
+type ServiceAreaMasterSearchInput = model.ServiceAreaMasterSearchParam
+
+// CreditCardMasterSearchInput is an input dto for credit card master search parameters.
+type CreditCardMasterSearchInput = model.CreditCardMasterSearchParam

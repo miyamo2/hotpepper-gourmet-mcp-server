@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/miyamo2/hotpepper-gourmet-mcp-server/internal/app/dto"
 	"github.com/miyamo2/hotpepper-gourmet-mcp-server/internal/domain/model"
+	"slices"
 )
 
 // ToolUseCase is a use-case for tools
@@ -66,38 +67,85 @@ func (u *ToolUseCase) GenreSearch(ctx context.Context, input dto.GenreSearchInpu
 }
 
 // GetDinnerBudgetMaster retrieves the dinner budget master data from the HotPepper Gourmet API.
-func (u *ToolUseCase) GetDinnerBudgetMaster(ctx context.Context) ([]dto.Budget, error) {
+func (u *ToolUseCase) GetDinnerBudgetMaster(ctx context.Context, input dto.DinnerBudgetMasterSearchInput) ([]dto.Budget, error) {
 	dinnerBudgetMaster, err := u.hotpepperClient.GetDinnerBudgetMaster(ctx)
-
 	if err != nil {
 		return nil, err
+	}
+	if input.Count > 0 {
+		var i int
+		start := int(input.Start)
+		for v := range slices.Chunk(dinnerBudgetMaster, int(input.Count)) {
+			i++
+			if i != start {
+				continue
+			}
+			return v, nil
+		}
+		return nil, nil
 	}
 	return dinnerBudgetMaster, nil
 }
 
 // GetLargeServiceAreaMaster retrieves the large service area master data from the HotPepper Gourmet API.
-func (u *ToolUseCase) GetLargeServiceAreaMaster(ctx context.Context) ([]dto.LargeServiceArea, error) {
+func (u *ToolUseCase) GetLargeServiceAreaMaster(ctx context.Context, input dto.LargeServiceAreaMasterSearchInput) ([]dto.LargeServiceArea, error) {
 	largeServiceAreaMaster, err := u.hotpepperClient.GetLargeServiceAreaMaster(ctx)
 	if err != nil {
 		return nil, err
+	}
+	if input.Count > 0 {
+		var i int
+		start := int(input.Start)
+		for v := range slices.Chunk(largeServiceAreaMaster, int(input.Count)) {
+			i++
+			if i != start {
+				continue
+			}
+			return v, nil
+		}
+		return nil, nil
 	}
 	return largeServiceAreaMaster, nil
 }
 
 // GetServiceAreaMaster retrieves the service area master data from the HotPepper Gourmet API.
-func (u *ToolUseCase) GetServiceAreaMaster(ctx context.Context) ([]dto.ServiceArea, error) {
+func (u *ToolUseCase) GetServiceAreaMaster(ctx context.Context, input dto.ServiceAreaMasterSearchInput) ([]dto.ServiceArea, error) {
 	serviceAreaMaster, err := u.hotpepperClient.GetServiceAreaMaster(ctx)
 	if err != nil {
 		return nil, err
+	}
+	if input.Count > 0 {
+		var i int
+		start := int(input.Start)
+		for v := range slices.Chunk(serviceAreaMaster, int(input.Count)) {
+			i++
+			if i != start {
+				continue
+			}
+			return v, nil
+		}
+		return nil, nil
 	}
 	return serviceAreaMaster, nil
 }
 
 // GetCreditCardMaster retrieves the credit card master data from the HotPepper Gourmet API.
-func (u *ToolUseCase) GetCreditCardMaster(ctx context.Context) ([]dto.CreditCard, error) {
+func (u *ToolUseCase) GetCreditCardMaster(ctx context.Context, input dto.CreditCardMasterSearchInput) ([]dto.CreditCard, error) {
 	creditCardMaster, err := u.hotpepperClient.GetCreditCardMaster(ctx)
 	if err != nil {
 		return nil, err
+	}
+	if input.Count > 0 {
+		var i int
+		start := int(input.Start)
+		for v := range slices.Chunk(creditCardMaster, int(input.Count)) {
+			i++
+			if i != start {
+				continue
+			}
+			return v, nil
+		}
+		return nil, nil
 	}
 	return creditCardMaster, nil
 }

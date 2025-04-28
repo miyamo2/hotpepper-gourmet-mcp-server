@@ -6,7 +6,6 @@ import (
 	"github.com/ktr0731/go-mcp"
 	"github.com/miyamo2/hotpepper-gourmet-mcp-server/internal/app/dto"
 	"github.com/miyamo2/hotpepper-gourmet-mcp-server/internal/interfaces/mcpgen"
-	"log/slog"
 )
 
 // compatibility check
@@ -79,7 +78,6 @@ func (h *ToolHandler) HandleToolGourmetSearch(ctx context.Context, req *mcpgen.T
 	}
 	result, err := h.usecase.GourmetSearch(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
@@ -95,7 +93,6 @@ func (h *ToolHandler) HandleToolShopSearch(ctx context.Context, req *mcpgen.Tool
 	}
 	result, err := h.usecase.ShopSearch(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
@@ -109,7 +106,6 @@ func (h *ToolHandler) HandleToolLargeAreaSearch(ctx context.Context, req *mcpgen
 	}
 	result, err := h.usecase.LargeAreaSearch(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
@@ -126,7 +122,6 @@ func (h *ToolHandler) HandleToolMiddleAreaSearch(ctx context.Context, req *mcpge
 	}
 	result, err := h.usecase.MiddleAreaSearch(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
@@ -143,7 +138,6 @@ func (h *ToolHandler) HandleToolSmallAreaSearch(ctx context.Context, req *mcpgen
 	}
 	result, err := h.usecase.SmallAreaSearch(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
@@ -157,43 +151,94 @@ func (h *ToolHandler) HandleToolGenreSearch(ctx context.Context, req *mcpgen.Too
 	}
 	result, err := h.usecase.GenreSearch(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
 }
 
-func (h *ToolHandler) HandleToolDinnerBudgetMasterSearch(ctx context.Context, _ *mcpgen.ToolDinnerBudgetMasterSearchRequest) (*mcp.CallToolResult, error) {
-	result, err := h.usecase.GetDinnerBudgetMaster(ctx)
+// HandleToolDinnerBudgetMasterSearch See: mcpgen.ServerToolHandler#HandleToolDinnerBudgetMasterSearch
+func (h *ToolHandler) HandleToolDinnerBudgetMasterSearch(ctx context.Context, req *mcpgen.ToolDinnerBudgetMasterSearchRequest) (*mcp.CallToolResult, error) {
+	inputDTO := dto.DinnerBudgetMasterSearchInput{
+		Start: 1,
+	}
+	if req.Count != nil {
+		if v := *req.Count; v > 0 {
+			inputDTO.Count = v
+		}
+	}
+	if req.Start != nil {
+		if v := *req.Start; v > 0 {
+			inputDTO.Start = v
+		}
+	}
+	result, err := h.usecase.GetDinnerBudgetMaster(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
 }
 
-func (h *ToolHandler) HandleToolLargeServiceAreaMasterSearch(ctx context.Context, _ *mcpgen.ToolLargeServiceAreaMasterSearchRequest) (*mcp.CallToolResult, error) {
-	result, err := h.usecase.GetLargeServiceAreaMaster(ctx)
+// HandleToolLargeServiceAreaMasterSearch See: mcpgen.ServerToolHandler#HandleToolLargeServiceAreaMasterSearch
+func (h *ToolHandler) HandleToolLargeServiceAreaMasterSearch(ctx context.Context, req *mcpgen.ToolLargeServiceAreaMasterSearchRequest) (*mcp.CallToolResult, error) {
+	inputDTO := dto.LargeServiceAreaMasterSearchInput{
+		Start: 1,
+	}
+	if req.Count != nil {
+		if v := *req.Count; v > 0 {
+			inputDTO.Count = v
+		}
+	}
+	if req.Start != nil {
+		if v := *req.Start; v > 0 {
+			inputDTO.Start = v
+		}
+	}
+	result, err := h.usecase.GetLargeServiceAreaMaster(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
 }
 
-func (h *ToolHandler) HandleToolServiceAreaMasterSearch(ctx context.Context, _ *mcpgen.ToolServiceAreaMasterSearchRequest) (*mcp.CallToolResult, error) {
-	result, err := h.usecase.GetServiceAreaMaster(ctx)
+// HandleToolServiceAreaMasterSearch See: mcpgen.ServerToolHandler#HandleToolServiceAreaMasterSearch
+func (h *ToolHandler) HandleToolServiceAreaMasterSearch(ctx context.Context, req *mcpgen.ToolServiceAreaMasterSearchRequest) (*mcp.CallToolResult, error) {
+	inputDTO := dto.ServiceAreaMasterSearchInput{
+		Start: 1,
+	}
+	if req.Count != nil {
+		if v := *req.Count; v > 0 {
+			inputDTO.Count = v
+		}
+	}
+	if req.Start != nil {
+		if v := *req.Start; v > 0 {
+			inputDTO.Start = v
+		}
+	}
+	result, err := h.usecase.GetServiceAreaMaster(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
 }
 
-func (h *ToolHandler) HandleToolCreditCardMasterSearch(ctx context.Context, _ *mcpgen.ToolCreditCardMasterSearchRequest) (*mcp.CallToolResult, error) {
-	result, err := h.usecase.GetCreditCardMaster(ctx)
+// HandleToolCreditCardMasterSearch See: mcpgen.ServerToolHandler#HandleToolCreditCardMasterSearch
+func (h *ToolHandler) HandleToolCreditCardMasterSearch(ctx context.Context, req *mcpgen.ToolCreditCardMasterSearchRequest) (*mcp.CallToolResult, error) {
+	inputDTO := dto.CreditCardMasterSearchInput{
+		Start: 1,
+	}
+	if req.Count != nil {
+		if v := *req.Count; v > 0 {
+			inputDTO.Count = v
+		}
+	}
+	if req.Start != nil {
+		if v := *req.Start; v > 0 {
+			inputDTO.Start = v
+		}
+	}
+	result, err := h.usecase.GetCreditCardMaster(ctx, inputDTO)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return h.toJSONResult(result)
@@ -203,7 +248,6 @@ func (h *ToolHandler) HandleToolCreditCardMasterSearch(ctx context.Context, _ *m
 func (h *ToolHandler) toJSONResult(result interface{}) (*mcp.CallToolResult, error) {
 	jsonResult, err := json.Marshal(result)
 	if err != nil {
-		slog.Error("occurred error", slog.String("error", err.Error()))
 		return nil, err
 	}
 	return &mcp.CallToolResult{
@@ -230,13 +274,13 @@ type ToolUseCase interface {
 	// GenreSearch retrieves genre data based on the provided search parameters.
 	GenreSearch(ctx context.Context, input dto.GenreSearchInput) ([]dto.Genre, error)
 	// GetDinnerBudgetMaster retrieves the dinner budget master data from the HotPepper Gourmet API.
-	GetDinnerBudgetMaster(ctx context.Context) ([]dto.Budget, error)
+	GetDinnerBudgetMaster(ctx context.Context, input dto.DinnerBudgetMasterSearchInput) ([]dto.Budget, error)
 	// GetLargeServiceAreaMaster retrieves the large service area master data from the HotPepper Gourmet API.
-	GetLargeServiceAreaMaster(ctx context.Context) ([]dto.LargeServiceArea, error)
+	GetLargeServiceAreaMaster(ctx context.Context, input dto.LargeServiceAreaMasterSearchInput) ([]dto.LargeServiceArea, error)
 	// GetServiceAreaMaster retrieves the service area master data from the HotPepper Gourmet API.
-	GetServiceAreaMaster(ctx context.Context) ([]dto.ServiceArea, error)
+	GetServiceAreaMaster(ctx context.Context, input dto.ServiceAreaMasterSearchInput) ([]dto.ServiceArea, error)
 	// GetCreditCardMaster retrieves the credit card master data from the HotPepper Gourmet API.
-	GetCreditCardMaster(ctx context.Context) ([]dto.CreditCard, error)
+	GetCreditCardMaster(ctx context.Context, input dto.CreditCardMasterSearchInput) ([]dto.CreditCard, error)
 }
 
 // NewToolHandler returns a new ToolHandler.

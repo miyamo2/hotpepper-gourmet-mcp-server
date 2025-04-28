@@ -49,7 +49,7 @@ func main() {
 					NameAny          *string  `json:"name_any,omitempty" jsonschema:"title=掲載店名ORかな,description=お店の名前または読みかな両方をOR検索(部分一致)します。"`
 					Tel              *string  `json:"tel,omitempty" jsonschema:"title=電話番号,description=お店の電話番号で検索します。半角数字(ハイフンなし),pattern=^\\d{9,11}$"`
 					Address          *string  `json:"address,omitempty"       jsonschema:"title=住所,description=お店の住所で検索(部分一致)します。"`
-					Keyword          []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=店名かな、店名、住所、駅名、お店ジャンルキャッチ、キャッチのフリーワード検索(部分一致)が可能です。複数指定可能"`
+					Keyword          []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=店名かな、店名、住所、駅名、お店ジャンルキャッチ、キャッチのフリーワード検索(部分一致)が可能です。複数指定可能。複数指定された場合、AND条件とみなします。"`
 					LargeServiceArea *string  `json:"large_service_area,omitempty" jsonschema:"title=大サービスエリアコード,description=エリアに割り当てられたコード番号で検索します。指定できるコード番号は大サービスエリアマスタを参照。"`
 					ServiceArea      []string `json:"service_area,omitempty" jsonschema:"title=サービスエリアコード,description=3個まで指定可。指定できるコード番号はサービスエリアマスタを参照。"`
 					LargeArea        []string `json:"large_area,omitempty"         jsonschema:"title=大エリアコード,description=3個まで指定可。指定できるコードについては大エリアマスタを参照。"`
@@ -127,7 +127,7 @@ func main() {
 					LargeArea  []string `json:"large_area,omitempty" jsonschema:"title=大エリアコード,description=大エリアコードで検索(完全一致)します。（3個まで指定可、4個以上指定すると4個目以降無視します）。,example=Z011"`
 					Keyword    []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=中エリア名で検索(部分一致)します。,example=飯田橋"`
 					Start      *uint    `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count      *uint8   `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：なし。最小1、最大：なし（すべて取得）"`
+					Count      *uint8   `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小1、最大：未設定（すべて取得）"`
 				}{},
 			},
 			{
@@ -138,7 +138,7 @@ func main() {
 					MiddleArea []string `json:"middle_area,omitempty" jsonschema:"title=中エリアコード,description=中エリアコードで検索(完全一致)します。（5個まで指定可、6個以上指定すると6個目以降無視します）。,example=Y005"`
 					Keyword    []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=小エリア名で検索(部分一致)します。,example=銀座"`
 					Start      *uint    `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count      *uint8   `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：なし。最小1、最大：なし（すべて取得）"`
+					Count      *uint8   `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小1、最大：未設定（すべて取得）"`
 				}{},
 			},
 			{
@@ -152,22 +152,34 @@ func main() {
 			{
 				Name:        "dinner_budget_master_search",
 				Description: "ディナー予算マスタを検索します",
-				InputSchema: struct{}{},
+				InputSchema: struct {
+					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
+					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+				}{},
 			},
 			{
 				Name:        "large_service_area_master_search",
 				Description: "大サービスエリアマスタを検索します",
-				InputSchema: struct{}{},
+				InputSchema: struct {
+					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
+					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+				}{},
 			},
 			{
 				Name:        "service_area_master_search",
 				Description: "サービスエリアマスタを検索します",
-				InputSchema: struct{}{},
+				InputSchema: struct {
+					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
+					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+				}{},
 			},
 			{
 				Name:        "credit_card_master_search",
 				Description: "クレジットカードマスタを検索します",
-				InputSchema: struct{}{},
+				InputSchema: struct {
+					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
+					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+				}{},
 			},
 		},
 		ResourceTemplates: []codegen.ResourceTemplate{

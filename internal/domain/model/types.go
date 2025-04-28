@@ -295,3 +295,27 @@ type Genre struct {
 	Code string `json:"code"`
 	Name string `json:"name"`
 }
+
+// DinnerBudgetMasterSearchParam indicates the dinner budget master search parameters for the HotPepper Gourmet API
+type DinnerBudgetMasterSearchParam struct {
+	Start uint
+	Count uint
+}
+
+// LargeServiceAreaMasterSearchParam indicates the large service area master search parameters for the HotPepper Gourmet API
+type LargeServiceAreaMasterSearchParam struct {
+	Start uint
+	Count uint
+}
+
+// ServiceAreaMasterSearchParam indicates the service area master search parameters for the HotPepper Gourmet API
+type ServiceAreaMasterSearchParam struct {
+	Start uint
+	Count uint
+}
+
+// CreditCardMasterSearchParam indicates the credit card master search parameters for the HotPepper Gourmet API
+type CreditCardMasterSearchParam struct {
+	Start uint
+	Count uint
+}

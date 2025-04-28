@@ -3,6 +3,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/cockroachdb/errors"
 	"github.com/joho/godotenv"
 	"github.com/ktr0731/go-mcp"
@@ -11,6 +12,8 @@ import (
 	"log/slog"
 	"os"
 	"os/signal"
+	"path/filepath"
+	"time"
 )
 
 func init() {
@@ -18,6 +21,21 @@ func init() {
 }
 
 func main() {
+	logOutputDir := os.Getenv("LOG_OUTPUT_DIR")
+	if logOutputDir == "" {
+		var err error
+		logOutputDir, err = os.Getwd()
+		if err != nil {
+			panic(err)
+		}
+	}
+	now := time.Now()
+	logFile, err := os.Create(filepath.Join(logOutputDir, fmt.Sprintf("hotpepper-gourmet-mcp-server-%s.log", now.Format("20060102-150405"))))
+	if err != nil {
+		panic(err)
+	}
+	slog.SetDefault(slog.New(slog.NewJSONHandler(logFile, nil)))
+
 	handler := di.GetHandler()
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
