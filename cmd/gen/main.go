@@ -43,7 +43,7 @@ func main() {
 					Name             *string  `json:"name,omitempty" jsonschema:"title=Store Name,description=Search by the store name (partial match)."`
 					NameKana         *string  `json:"name_kana,omitempty" jsonschema:"title=Store Name Kana,description=Search by the store's phonetic name (partial match)."`
 					NameAny          *string  `json:"name_any,omitempty" jsonschema:"title=Store Name OR Kana,description=Search across both store name and phonetic name with an OR condition (partial match)."`
-					Tel              *string  `json:"tel,omitempty" jsonschema:"title=Phone Number,description=Search by the store's phone number. Digits only (no hyphens).,pattern=^\\d{9,11}$"`
+					Tel              *string  `json:"tel,omitempty" jsonschema:"title=Phone Number,description=Search by the store's phone number. Digits only (no hyphens).,pattern=^\\d{9}(\\d|\\d{2})?$"`
 					Address          *string  `json:"address,omitempty" jsonschema:"title=Address,description=Search by the store's address (partial match)."`
 					Keyword          []string `json:"keyword,omitempty" jsonschema:"title=Keyword,description=Free-text search across store name kana, store name, address, station name, store genre catch, and catch. Multiple entries are possible. If multiple entries are given, they are treated as an AND condition."`
 					LargeServiceArea *string  `json:"large_service_area,omitempty" jsonschema:"title=Large Service Area Code,description=Search by the code number assigned to the area. Refer to the Large Service Area master for possible codes."`
@@ -102,7 +102,7 @@ func main() {
 				Description: "Searches for restaurant information.",
 				InputSchema: struct {
 					Keyword []string `json:"keyword,omitempty" jsonschema:"title=Keyword,description=Search by the store's name, phonetic reading, or address (partial match). Multiple entries allowed."`
-					Tel     *string  `json:"tel,omitempty" jsonschema:"title=Phone Number,description=Search by the store's phone number (digits only, no hyphens).,pattern=^\\d{9,11}$"`
+					Tel     *string  `json:"tel,omitempty" jsonschema:"title=Phone Number,description=Search by the store's phone number (digits only, no hyphens).,pattern=^\\d{9}(\\d|\\d{2})?$"`
 					Start   *uint    `json:"start,omitempty" jsonschema:"title=Start Position,description=Specifies which search result index to start from. The default is 1."`
 					Count   *uint8   `json:"count,omitempty" jsonschema:"title=Items Per Page,description=Specifies the maximum number of results to return per page. The default is 30. Minimum is 1, maximum is 30."`
 				}{},
