@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bytes"
 	"log"
 	"os"
 	"path/filepath"
@@ -17,12 +18,7 @@ func main() {
 		log.Fatalf("failed to create output directory: %v", err)
 	}
 
-	// Create output file
-	f, err := os.Create(filepath.Join(outDir, "mcp.gen.go"))
-	if err != nil {
-		log.Fatalf("failed to create file: %v", err)
-	}
-	defer f.Close()
+	var buf bytes.Buffer
 
 	// Server definition
 	def := &codegen.ServerDefinition{
@@ -211,7 +207,19 @@ func main() {
 	}
 
 	// Generate code
-	if err := codegen.Generate(f, def, "mcpgen"); err != nil {
+	if err := codegen.Generate(&buf, def, "mcpgen"); err != nil {
 		log.Fatalf("failed to generate code: %v", err)
+	}
+
+	f, err := os.Create(filepath.Join(outDir, "mcp.gen.go"))
+	if err != nil {
+		log.Fatalf("failed to create file: %v", err)
+	}
+	defer f.Close()
+
+	data := bytes.ReplaceAll(buf.Bytes(), []byte(`"$schema":"https://json-schema.org/draft/2020-12/schema",`), []byte(""))
+	_, err = f.Write(data)
+	if err != nil {
+		log.Fatalf("failed to write file: %v", err)
 	}
 }
