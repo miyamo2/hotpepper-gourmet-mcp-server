@@ -37,169 +37,169 @@ func main() {
 		Tools: []codegen.Tool{
 			{
 				Name:        "gourmet_search",
-				Description: "グルメを検索します",
+				Description: "Searches for gourmet information.",
 				InputSchema: struct {
-					ID               []string `json:"id,omitempty"  jsonschema:"title=お店ID,description=お店に割り当てられた番号で検索します。20個まで指定可。,example=J999999999"`
-					Name             *string  `json:"name,omitempty" jsonschema:"title=掲載店名,description=お店の名前で検索(部分一致)します。"`
-					NameKana         *string  `json:"name_kana,omitempty" jsonschema:"title=掲載店名かな,description=お店の読みかなで検索(部分一致)します。"`
-					NameAny          *string  `json:"name_any,omitempty" jsonschema:"title=掲載店名ORかな,description=お店の名前または読みかな両方をOR検索(部分一致)します。"`
-					Tel              *string  `json:"tel,omitempty" jsonschema:"title=電話番号,description=お店の電話番号で検索します。半角数字(ハイフンなし),pattern=^\\d{9,11}$"`
-					Address          *string  `json:"address,omitempty"       jsonschema:"title=住所,description=お店の住所で検索(部分一致)します。"`
-					Keyword          []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=店名かな、店名、住所、駅名、お店ジャンルキャッチ、キャッチのフリーワード検索(部分一致)が可能です。複数指定可能。複数指定された場合、AND条件とみなします。"`
-					LargeServiceArea *string  `json:"large_service_area,omitempty" jsonschema:"title=大サービスエリアコード,description=エリアに割り当てられたコード番号で検索します。指定できるコード番号は大サービスエリアマスタを参照。"`
-					ServiceArea      []string `json:"service_area,omitempty" jsonschema:"title=サービスエリアコード,description=3個まで指定可。指定できるコード番号はサービスエリアマスタを参照。"`
-					LargeArea        []string `json:"large_area,omitempty"         jsonschema:"title=大エリアコード,description=3個まで指定可。指定できるコードについては大エリアマスタを参照。"`
-					MiddleArea       []string `json:"middle_area,omitempty"        jsonschema:"title=中エリアコード,description=5個まで指定可。指定できるコードについてはエリアマスタを参照。"`
-					SmallArea        []string `json:"small_area,omitempty"         jsonschema:"title=小エリアコード,description=5個まで指定可。指定できるコードについては小エリアマスタを参照。"`
-					Latitude         *float64 `json:"lat,omitempty"   jsonschema:"title=緯度,description=ある地点からの範囲内のお店の検索を行う場合の緯度です。"`
-					Longitude        *float64 `json:"lng,omitempty"   jsonschema:"title=経度,description=ある地点からの範囲内のお店の検索を行う場合の経度です。"`
-					Range            *uint8   `json:"range,omitempty" jsonschema:"title=検索範囲,description=ある地点からの範囲内のお店の検索を行う場合の範囲を5段階で指定できます。たとえば300m以内の検索ならrange=1を指定します 1=300m 2=500m 3=1000m (初期値)4=2000m 5=3000m,example=1" `
-					Datum            *string  `json:"datum,omitempty" jsonschema:"title=測地系,description=緯度・経度の測地系を指定できます。world: 世界測地系、tokyo: 旧日本測地系。初期値は world。"`
-					Genre            []string `json:"genre,omitempty"          jsonschema:"title=お店ジャンルコード,description=お店のジャンル(サブジャンル含む)で絞込むことができます。指定できるコードについてはジャンルマスタ参照"`
-					Budget           []string `json:"budget,omitempty"         jsonschema:"title=検索用ディナー予算コード,description=ディナー予算で絞り込むことができます。指定できるコードについてはディナー予算マスタ参照"`
-					PartyCapacity    *uint    `json:"party_capacity,omitempty" jsonschema:"title=宴会収容人数,description=宴会収容人数で絞り込むことができます。指定数より大きな収容人数のお店を検索します"`
-					KtaiCoupon       bool     `json:"ktai_coupon,omitempty"  jsonschema:"title=携帯クーポン掲載,description=携帯クーポンの有無で絞り込み条件を指定します。true=絞り込む false=絞り込まない"`
-					Wifi             bool     `json:"wifi,omitempty"         jsonschema:"title=WiFi 有無,description=WiFi 経由によるインターネット利用が可能なお店を絞り込みます。true=絞り込む false=絞り込まない"`
-					Wedding          bool     `json:"wedding,omitempty"      jsonschema:"title=ウェディング二次会等,description=ウェディング・二次会等のお問い合わせが可能なお店を絞り込みます。true=絞り込む false=絞り込まない"`
-					Course           bool     `json:"course,omitempty"       jsonschema:"title=コースあり,description=「コースあり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					FreeDrink        bool     `json:"free_drink,omitempty"   jsonschema:"title=飲み放題,description=「飲み放題」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					FreeFood         bool     `json:"free_food,omitempty"    jsonschema:"title=食べ放題,description=「食べ放題」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					PrivateRoom      bool     `json:"private_room,omitempty" jsonschema:"title=個室あり,description=「個室あり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Horigotatsu      bool     `json:"horigotatsu,omitempty"  jsonschema:"title=掘りごたつあり,description=「掘りごたつあり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Tatami           bool     `json:"tatami,omitempty"       jsonschema:"title=座敷あり,description=「座敷あり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Cocktail         bool     `json:"cocktail,omitempty"     jsonschema:"title=カクテル充実,description=「カクテル充実」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Shochu           bool     `json:"shochu,omitempty"       jsonschema:"title=焼酎充実,description=「焼酎充実」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Sake             bool     `json:"sake,omitempty"         jsonschema:"title=日本酒充実,description=「日本酒充実」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Wine             bool     `json:"wine,omitempty"         jsonschema:"title=ワイン充実,description=「ワイン充実」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Card             bool     `json:"card,omitempty"         jsonschema:"title=カード可,description=「カード可」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					NonSmoking       bool     `json:"non_smoking,omitempty"  jsonschema:"title=禁煙席,description=「禁煙席」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Charter          bool     `json:"charter,omitempty"      jsonschema:"title=貸切,description=「貸切可」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Ktai             bool     `json:"ktai,omitempty"         jsonschema:"title=携帯電話OK,description=「携帯電話OK」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Parking          bool     `json:"parking,omitempty"      jsonschema:"title=駐車場あり,description=「駐車場あり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					BarrierFree      bool     `json:"barrier_free,omitempty" jsonschema:"title=バリアフリー,description=「バリアフリー」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Sommelier        bool     `json:"sommelier,omitempty"    jsonschema:"title=ソムリエがいる,description=「ソムリエがいる」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					NightView        bool     `json:"night_view,omitempty"   jsonschema:"title=夜景がキレイ,description=「夜景がキレイ」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					OpenAir          bool     `json:"open_air,omitempty"     jsonschema:"title=オープンエア,description=「オープンエア」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Show             bool     `json:"show,omitempty"         jsonschema:"title=ライブ・ショーあり,description=「ライブ・ショーあり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Equipment        bool     `json:"equipment,omitempty"    jsonschema:"title=エンタメ設備,description=「エンタメ設備」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Karaoke          bool     `json:"karaoke,omitempty"      jsonschema:"title=カラオケあり,description=「カラオケあり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Band             bool     `json:"band,omitempty"         jsonschema:"title=バンド演奏可,description=「バンド演奏可」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					TV               bool     `json:"tv,omitempty"           jsonschema:"title=TV・プロジェクター,description=「TV・プロジェクター」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Lunch            bool     `json:"lunch,omitempty"        jsonschema:"title=ランチあり,description=「ランチあり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Midnight         bool     `json:"midnight,omitempty"     jsonschema:"title=23時以降も営業,description=「23時以降も営業」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					MidnightMeal     bool     `json:"midnight_meal,omitempty"jsonschema:"title=23時以降食事OK,description=「23時以降食事OK」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					English          bool     `json:"english,omitempty"      jsonschema:"title=英語メニューあり,description=「英語メニューあり」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Pet              bool     `json:"pet,omitempty"          jsonschema:"title=ペット可,description=「ペット可」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					Child            bool     `json:"child,omitempty"        jsonschema:"title=お子様連れOK,description=「お子様連れOK」という条件で絞り込むかどうかを指定します。true=絞り込む false=絞り込まない"`
-					CreditCard       []string `json:"credit_card,omitempty" jsonschema:"title=クレジットカード,description=クレジットカードの種別ごとに絞り込むことができます。指定できるコードについてはクレジットカードマスタ参照。(2008/02/08追加)"`
-					Order            *uint8   `json:"order,omitempty"       jsonschema:"title=ソート順,description=検索結果の並び順を指定します。おススメ順は定期的に更新されます。 ※ 位置検索の場合、「4:オススメ順」以外は指定に関係なく、強制的に距離順でソートされます。 1:店名かな順 2:ジャンルコード順 3:小エリアコード順 4:おススメ順 初期値はおススメ順。位置から検索を行った場合は距離順"`
-					Start            *uint    `json:"start,omitempty"       jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値は1。"`
-					Count            *uint8   `json:"count,omitempty"       jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値は10。最小1、最大100。"`
+					ID               []string `json:"id,omitempty" jsonschema:"title=Store ID,description=Search by the code assigned to the store. Up to 20 can be specified.,example=J999999999"`
+					Name             *string  `json:"name,omitempty" jsonschema:"title=Store Name,description=Search by the store name (partial match)."`
+					NameKana         *string  `json:"name_kana,omitempty" jsonschema:"title=Store Name Kana,description=Search by the store's phonetic name (partial match)."`
+					NameAny          *string  `json:"name_any,omitempty" jsonschema:"title=Store Name OR Kana,description=Search across both store name and phonetic name with an OR condition (partial match)."`
+					Tel              *string  `json:"tel,omitempty" jsonschema:"title=Phone Number,description=Search by the store's phone number. Digits only (no hyphens).,pattern=^\\d{9,11}$"`
+					Address          *string  `json:"address,omitempty" jsonschema:"title=Address,description=Search by the store's address (partial match)."`
+					Keyword          []string `json:"keyword,omitempty" jsonschema:"title=Keyword,description=Free-text search across store name kana, store name, address, station name, store genre catch, and catch. Multiple entries are possible. If multiple entries are given, they are treated as an AND condition."`
+					LargeServiceArea *string  `json:"large_service_area,omitempty" jsonschema:"title=Large Service Area Code,description=Search by the code number assigned to the area. Refer to the Large Service Area master for possible codes."`
+					ServiceArea      []string `json:"service_area,omitempty" jsonschema:"title=Service Area Code,description=Up to 3 entries allowed. Refer to the Service Area master for possible codes."`
+					LargeArea        []string `json:"large_area,omitempty" jsonschema:"title=Large Area Code,description=Up to 3 entries allowed. Refer to the Large Area master for possible codes."`
+					MiddleArea       []string `json:"middle_area,omitempty" jsonschema:"title=Middle Area Code,description=Up to 5 entries allowed. Refer to the Middle Area master for possible codes."`
+					SmallArea        []string `json:"small_area,omitempty" jsonschema:"title=Small Area Code,description=Up to 5 entries allowed. Refer to the Small Area master for possible codes."`
+					Latitude         *float64 `json:"lat,omitempty" jsonschema:"title=Latitude,description=Used if searching for stores within a certain distance from a given point."`
+					Longitude        *float64 `json:"lng,omitempty" jsonschema:"title=Longitude,description=Used if searching for stores within a certain distance from a given point."`
+					Range            *uint8   `json:"range,omitempty" jsonschema:"title=Search Range,description=Specifies a range in 5 levels for distance-based searching from a given point. For example, use range=1 for within 300m: 1=300m 2=500m 3=1000m (default)4=2000m 5=3000m,example=1"`
+					Datum            *string  `json:"datum,omitempty" jsonschema:"title=Geodetic System,description=Specifies the geodetic system for latitude and longitude. 'world' for World Geodetic System, 'tokyo' for old Japanese Geodetic System. Default is 'world'."`
+					Genre            []string `json:"genre,omitempty" jsonschema:"title=Store Genre Code,description=Can filter by the store's genre (including sub-genres). Refer to the Genre master for valid codes."`
+					Budget           []string `json:"budget,omitempty" jsonschema:"title=Dinner Budget Code for Search,description=Can filter by dinner budget. Refer to the Dinner Budget master for valid codes."`
+					PartyCapacity    *uint    `json:"party_capacity,omitempty" jsonschema:"title=Party Capacity,description=Can filter by party capacity. Finds stores with capacity larger than the specified number."`
+					KtaiCoupon       bool     `json:"ktai_coupon,omitempty"  jsonschema:"title=Mobile Coupon Availability,description=Specifies whether to filter by mobile coupons. true=filter false=do not filter"`
+					Wifi             bool     `json:"wifi,omitempty"         jsonschema:"title=WiFi Availability,description=Specifies whether to filter by stores offering internet access via WiFi. true=filter false=do not filter"`
+					Wedding          bool     `json:"wedding,omitempty"      jsonschema:"title=Wedding/After-Parties,description=Specifies whether to filter by stores that accept wedding/after-party inquiries. true=filter false=do not filter"`
+					Course           bool     `json:"course,omitempty"       jsonschema:"title=Courses,description=Specifies whether to filter by stores offering course meals. true=filter false=do not filter"`
+					FreeDrink        bool     `json:"free_drink,omitempty"   jsonschema:"title=All-You-Can-Drink,description=Specifies whether to filter by stores offering all-you-can-drink. true=filter false=do not filter"`
+					FreeFood         bool     `json:"free_food,omitempty"    jsonschema:"title=All-You-Can-Eat,description=Specifies whether to filter by stores offering all-you-can-eat. true=filter false=do not filter"`
+					PrivateRoom      bool     `json:"private_room,omitempty" jsonschema:"title=Private Room,description=Specifies whether to filter by stores offering private rooms. true=filter false=do not filter"`
+					Horigotatsu      bool     `json:"horigotatsu,omitempty"  jsonschema:"title=Sunken Kotatsu,description=Specifies whether to filter by stores offering sunken kotatsu seating. true=filter false=do not filter"`
+					Tatami           bool     `json:"tatami,omitempty"       jsonschema:"title=Tatami,description=Specifies whether to filter by stores offering tatami seating. true=filter false=do not filter"`
+					Cocktail         bool     `json:"cocktail,omitempty"     jsonschema:"title=Cocktail Selection,description=Specifies whether to filter by stores with a wide cocktail selection. true=filter false=do not filter"`
+					Shochu           bool     `json:"shochu,omitempty"       jsonschema:"title=Shochu Selection,description=Specifies whether to filter by stores with a wide shochu selection. true=filter false=do not filter"`
+					Sake             bool     `json:"sake,omitempty"         jsonschema:"title=Sake Selection,description=Specifies whether to filter by stores with a wide sake selection. true=filter false=do not filter"`
+					Wine             bool     `json:"wine,omitempty"         jsonschema:"title=Wine Selection,description=Specifies whether to filter by stores with a wide wine selection. true=filter false=do not filter"`
+					Card             bool     `json:"card,omitempty"         jsonschema:"title=Credit Cards Accepted,description=Specifies whether to filter by stores accepting credit cards. true=filter false=do not filter"`
+					NonSmoking       bool     `json:"non_smoking,omitempty"  jsonschema:"title=Non-Smoking,description=Specifies whether to filter by stores offering non-smoking seats. true=filter false=do not filter"`
+					Charter          bool     `json:"charter,omitempty"      jsonschema:"title=Charter,description=Specifies whether to filter by stores allowing private events. true=filter false=do not filter"`
+					Ktai             bool     `json:"ktai,omitempty"         jsonschema:"title=Cell Phone OK,description=Specifies whether to filter by stores allowing cell phone use. true=filter false=do not filter"`
+					Parking          bool     `json:"parking,omitempty"      jsonschema:"title=Parking Available,description=Specifies whether to filter by stores offering parking. true=filter false=do not filter"`
+					BarrierFree      bool     `json:"barrier_free,omitempty" jsonschema:"title=Barrier-Free,description=Specifies whether to filter by barrier-free accessibility. true=filter false=do not filter"`
+					Sommelier        bool     `json:"sommelier,omitempty"    jsonschema:"title=Sommelier,description=Specifies whether to filter by stores with a sommelier on staff. true=filter false=do not filter"`
+					NightView        bool     `json:"night_view,omitempty"   jsonschema:"title=Night View,description=Specifies whether to filter by stores with a nice night view. true=filter false=do not filter"`
+					OpenAir          bool     `json:"open_air,omitempty"     jsonschema:"title=Open Air,description=Specifies whether to filter by open-air spaces. true=filter false=do not filter"`
+					Show             bool     `json:"show,omitempty"         jsonschema:"title=Live Shows,description=Specifies whether to filter by stores that offer live shows. true=filter false=do not filter"`
+					Equipment        bool     `json:"equipment,omitempty"    jsonschema:"title=Entertainment Equipment,description=Specifies whether to filter by stores with entertainment equipment. true=filter false=do not filter"`
+					Karaoke          bool     `json:"karaoke,omitempty"      jsonschema:"title=Karaoke,description=Specifies whether to filter by stores with karaoke. true=filter false=do not filter"`
+					Band             bool     `json:"band,omitempty"         jsonschema:"title=Band Performances,description=Specifies whether to filter by stores allowing band performances. true=filter false=do not filter"`
+					TV               bool     `json:"tv,omitempty"           jsonschema:"title=TV/Projector,description=Specifies whether to filter by stores with TV/projector. true=filter false=do not filter"`
+					Lunch            bool     `json:"lunch,omitempty"        jsonschema:"title=Lunch Available,description=Specifies whether to filter by stores offering lunch. true=filter false=do not filter"`
+					Midnight         bool     `json:"midnight,omitempty"     jsonschema:"title=Open After 11PM,description=Specifies whether to filter by stores open after 11PM. true=filter false=do not filter"`
+					MidnightMeal     bool     `json:"midnight_meal,omitempty" jsonschema:"title=Meals After 11PM,description=Specifies whether to filter by stores offering meals after 11PM. true=filter false=do not filter"`
+					English          bool     `json:"english,omitempty"      jsonschema:"title=English Menu Available,description=Specifies whether to filter by stores offering an English menu. true=filter false=do not filter"`
+					Pet              bool     `json:"pet,omitempty"          jsonschema:"title=Pets Allowed,description=Specifies whether to filter by pet-friendly stores. true=filter false=do not filter"`
+					Child            bool     `json:"child,omitempty"        jsonschema:"title=Children Allowed,description=Specifies whether to filter by stores that allow children. true=filter false=do not filter"`
+					CreditCard       []string `json:"credit_card,omitempty" jsonschema:"title=Credit Cards,description=Can filter by specific credit card types. Refer to the Credit Card master for possible codes. (Added 2008/02/08)"`
+					Order            *uint8   `json:"order,omitempty"       jsonschema:"title=Sort Order,description=Specifies how to sort the search results. The recommended order is updated periodically. * If searching by location, all orders other than 4 are ignored and distance order is applied. 1=Store name kana 2=Genre code 3=Small area code 4=Recommended (default). If searching by location, distance order is forced."`
+					Start            *uint    `json:"start,omitempty"       jsonschema:"title=Start Position,description=Specifies which result index to begin output. Default is 1."`
+					Count            *uint8   `json:"count,omitempty"       jsonschema:"title=Items per Page,description=Specifies how many results to output at once. Default is 10. Minimum 1, maximum 100."`
 				}{},
 			},
 			{
 				Name:        "shop_search",
-				Description: "お店を検索します",
+				Description: "Searches for restaurant information.",
 				InputSchema: struct {
-					Keyword []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=お店の名前・読みがな・住所で検索（部分一致）します。複数指定可能"`
-					Tel     *string  `json:"tel,omitempty" jsonschema:"title=電話番号,description=お店の電話番号で検索します。半角数字(ハイフンなし),pattern=^\\d{9,11}$"`
-					Start   *uint    `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値は1。"`
-					Count   *uint8   `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値は30。最小1、最大30。"`
+					Keyword []string `json:"keyword,omitempty" jsonschema:"title=Keyword,description=Search by the store's name, phonetic reading, or address (partial match). Multiple entries allowed."`
+					Tel     *string  `json:"tel,omitempty" jsonschema:"title=Phone Number,description=Search by the store's phone number (digits only, no hyphens).,pattern=^\\d{9,11}$"`
+					Start   *uint    `json:"start,omitempty" jsonschema:"title=Start Position,description=Specifies which search result index to start from. The default is 1."`
+					Count   *uint8   `json:"count,omitempty" jsonschema:"title=Items Per Page,description=Specifies the maximum number of results to return per page. The default is 30. Minimum is 1, maximum is 30."`
 				}{},
 			},
 			{
 				Name:        "large_area_search",
-				Description: "大エリアマスタを検索します",
+				Description: "Searches for large area.",
 				InputSchema: struct {
-					LargeArea []string `json:"large_area,omitempty" jsonschema:"title=大エリアコード,description=大エリアコードで検索(完全一致)します。（3個まで指定可、4個以上指定すると4個目以降無視します）。"`
-					Keyword   []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=大エリア名で検索(部分一致)します。"`
+					LargeArea []string `json:"large_area,omitempty" jsonschema:"title=Large Area Code,description=Search by large area code (exact match). Up to 3 can be specified. If 4 or more are specified, entries from the 4th onward will be ignored."`
+					Keyword   []string `json:"keyword,omitempty"   jsonschema:"title=Keyword,description=Search by large area name (partial match)."`
 				}{},
 			},
 			{
 				Name:        "middle_area_search",
-				Description: "中エリアマスタを検索します",
+				Description: "Searches for middle area.",
 				InputSchema: struct {
-					MiddleArea []string `json:"middle_area,omitempty" jsonschema:"title=中エリアコード,description=中エリアコードで検索(完全一致)します。（5個まで指定可、6個以上指定すると6個目以降無視します）。,example=Y005"`
-					LargeArea  []string `json:"large_area,omitempty" jsonschema:"title=大エリアコード,description=大エリアコードで検索(完全一致)します。（3個まで指定可、4個以上指定すると4個目以降無視します）。,example=Z011"`
-					Keyword    []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=中エリア名で検索(部分一致)します。,example=飯田橋"`
-					Start      *uint    `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count      *uint8   `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小1、最大：未設定（すべて取得）"`
+					MiddleArea []string `json:"middle_area,omitempty" jsonschema:"title=Middle Area Code,description=Search by middle area code (exact match). Up to 5 can be specified. If 6 or more are specified, the 6th and onward are ignored."`
+					LargeArea  []string `json:"large_area,omitempty"  jsonschema:"title=Large Area Code,description=Search by large area code (exact match). Up to 3 can be specified. If 4 or more are specified, the 4th and onward are ignored."`
+					Keyword    []string `json:"keyword,omitempty"     jsonschema:"title=Keyword,description=Search by middle area name (partial match).,example=飯田橋"`
+					Start      *uint    `json:"start,omitempty"       jsonschema:"title=Start Position,description=Specifies which result index to begin output from. Default is 1."`
+					Count      *uint8   `json:"count,omitempty"       jsonschema:"title=Items Per Page,description=Specifies the maximum number of search results per page. Default is unset. Minimum is 1, maximum is unset (retrieve all)."`
 				}{},
 			},
 			{
 				Name:        "small_area_search",
-				Description: "小エリアマスタを検索します",
+				Description: "Searches for small area.",
 				InputSchema: struct {
-					SmallArea  []string `json:"small_area,omitempty" jsonschema:"title=小エリアコード,description=小エリアコードで検索(完全一致)します。（5個まで指定可、6個以上指定すると6個目以降無視します）。,example=X005"`
-					MiddleArea []string `json:"middle_area,omitempty" jsonschema:"title=中エリアコード,description=中エリアコードで検索(完全一致)します。（5個まで指定可、6個以上指定すると6個目以降無視します）。,example=Y005"`
-					Keyword    []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=小エリア名で検索(部分一致)します。,example=銀座"`
-					Start      *uint    `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count      *uint8   `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小1、最大：未設定（すべて取得）"`
+					SmallArea  []string `json:"small_area,omitempty" jsonschema:"title=Small Area Code,description=Search by small area code (exact match). Up to 5 can be specified. If 6 or more are specified, entries from the 6th onward will be ignored."`
+					MiddleArea []string `json:"middle_area,omitempty" jsonschema:"title=Middle Area Code,description=Search by middle area code (exact match). Up to 5 can be specified. If 6 or more are specified, entries from the 6th onward will be ignored."`
+					Keyword    []string `json:"keyword,omitempty"    jsonschema:"title=Keyword,description=Search by small area name (partial match).,example=銀座"`
+					Start      *uint    `json:"start,omitempty"      jsonschema:"title=Start Position,description=Specifies which search result index to start from. Default is 1."`
+					Count      *uint8   `json:"count,omitempty"      jsonschema:"title=Items Per Page,description=Specifies the maximum number of results per page. Default is unset. Minimum is 1, maximum is unset (all results)."`
 				}{},
 			},
 			{
 				Name:        "genre_search",
-				Description: "ジャンルマスタを検索します",
+				Description: "Searches for genre.",
 				InputSchema: struct {
-					Code    []string `json:"code,omitempty" jsonschema:"title=ジャンルコード,description=ジャンルコードで検索(完全一致)します。（２個まで指定可、3個以上指定すると3個目以降無視します）。,example=G002"`
-					Keyword []string `json:"keyword,omitempty" jsonschema:"title=キーワード,description=ジャンル名で検索(部分一致)します。,example=バー"`
+					Code    []string `json:"code,omitempty" jsonschema:"title=Genre Code,description=Search by genre code (exact match). Up to 2 can be specified. If 3 or more are specified, entries from the 3rd onward will be ignored."`
+					Keyword []string `json:"keyword,omitempty" jsonschema:"title=Keyword,description=Search by genre name (partial match).,example=バー"`
 				}{},
 			},
 			{
 				Name:        "dinner_budget_master_search",
-				Description: "ディナー予算マスタを検索します",
+				Description: "Retrieves diner_budget_master.",
 				InputSchema: struct {
-					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+					Start *uint `json:"start,omitempty" jsonschema:"title=Start Position,description=Specifies which search result index to start from. Default is 1."`
+					Count *uint `json:"count,omitempty" jsonschema:"title=Items Per Page,description=Specifies the maximum number of search results to return per page. Default is unset. Minimum is 1, maximum is unset (retrieve all), recommended to keep unset (retrieve all)."`
 				}{},
 			},
 			{
 				Name:        "large_service_area_master_search",
-				Description: "大サービスエリアマスタを検索します",
+				Description: "Retrieves large_service_area_master",
 				InputSchema: struct {
-					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+					Start *uint `json:"start,omitempty" jsonschema:"title=Start Position,description=Specifies which search result index to begin output from. Default is 1."`
+					Count *uint `json:"count,omitempty" jsonschema:"title=Items Per Page,description=Specifies the maximum number of search results per page. Default is unset. Minimum is 1, maximum is unset (all results), recommended to remain unset (all results)."`
 				}{},
 			},
 			{
 				Name:        "service_area_master_search",
-				Description: "サービスエリアマスタを検索します",
+				Description: "Retrieves service_area_master",
 				InputSchema: struct {
-					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+					Start *uint `json:"start,omitempty" jsonschema:"title=Start Position,description=Specifies which search result index to start from. Default is 1."`
+					Count *uint `json:"count,omitempty" jsonschema:"title=Items Per Page,description=Specifies the maximum number of search results per page. Default is unset. Minimum is 1, maximum is unset (retrieve all), recommended to remain unset (retrieve all)."`
 				}{},
 			},
 			{
 				Name:        "credit_card_master_search",
-				Description: "クレジットカードマスタを検索します",
+				Description: "Retrieves credit_card_master",
 				InputSchema: struct {
-					Start *uint `json:"start,omitempty" jsonschema:"title=検索の開始位置,description=検索結果の何件目から出力するかを指定します。初期値:1"`
-					Count *uint `json:"count,omitempty" jsonschema:"title=1ページあたりの取得数,description=検索結果の最大出力データ数を指定します。初期値：未設定。最小: 1、最大：未設定（すべて取得）、推奨: 未設定（すべて取得）"`
+					Start *uint `json:"start,omitempty" jsonschema:"title=Start Position,description=Specifies which search result index to start from. Default is 1."`
+					Count *uint `json:"count,omitempty" jsonschema:"title=Items Per Page,description=Specifies the maximum number of search results per page. Default is unset. Minimum is 1, maximum is unset (retrieve all), recommended to remain unset (retrieve all)."`
 				}{},
 			},
 		},
 		ResourceTemplates: []codegen.ResourceTemplate{
 			{
 				Name:        "dinner_budget_master",
-				Description: "ディナー予算マスタ",
+				Description: "dinner_budget_master",
 				URITemplate: "https://webservice.recruit.co.jp/hotpepper/budget/v1/",
 				MimeType:    "application/json",
 			},
 			{
 				Name:        "large_service_area_master",
-				Description: "大サービスエリアマスタ",
+				Description: "large_service_area_master",
 				URITemplate: "https://webservice.recruit.co.jp/hotpepper/large_service_area/v1/",
 				MimeType:    "application/json",
 			},
 			{
 				Name:        "service_area_master",
-				Description: "サービスエリアマスタ",
+				Description: "service_area_master",
 				URITemplate: "https://webservice.recruit.co.jp/hotpepper/service_area/v1/",
 				MimeType:    "application/json",
 			},
 			{
 				Name:        "credit_card_master",
-				Description: "クレジットカードマスタ",
+				Description: "credit_card_master",
 				URITemplate: "https://webservice.recruit.co.jp/hotpepper/credit_card/v1/",
 				MimeType:    "application/json",
 			},
