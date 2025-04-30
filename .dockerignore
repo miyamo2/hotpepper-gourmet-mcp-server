@@ -1,0 +1,6 @@
+.github
+.gitignore
+.goreleaser.yaml
+*.md
+*.json
+LICENSE
