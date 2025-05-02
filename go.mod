@@ -3,7 +3,7 @@ module github.com/miyamo2/hotpepper-gourmet-mcp-server
 go 1.24
 
 require (
-	github.com/cockroachdb/errors v1.11.3
+	github.com/cockroachdb/errors v1.12.0
 	github.com/go-resty/resty/v2 v2.16.5
 	github.com/goccy/go-json v0.10.5
 	github.com/google/go-querystring v1.1.0
