@@ -10,7 +10,7 @@ require (
 	github.com/google/wire v0.6.0
 	github.com/joho/godotenv v1.5.1
 	github.com/ktr0731/go-mcp v0.1.0
-	golang.org/x/exp/jsonrpc2 v0.0.0-20250408133849-7e4ce0ab07d0
+	golang.org/x/exp/jsonrpc2 v0.0.0-20250506013437-ce4c2cf36ca6
 )
 
 require (
