@@ -9,7 +9,7 @@ require (
 	github.com/google/go-querystring v1.1.0
 	github.com/google/wire v0.6.0
 	github.com/joho/godotenv v1.5.1
-	github.com/ktr0731/go-mcp v0.1.0
+	github.com/ktr0731/go-mcp v0.1.1
 	golang.org/x/exp/jsonrpc2 v0.0.0-20250531010427-b6e5de432a8b
 )
 
