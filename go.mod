@@ -7,7 +7,7 @@ require (
 	github.com/go-resty/resty/v2 v2.16.5
 	github.com/goccy/go-json v0.10.5
 	github.com/google/go-querystring v1.1.0
-	github.com/google/wire v0.6.0
+	github.com/google/wire v0.7.0
 	github.com/joho/godotenv v1.5.1
 	github.com/ktr0731/go-mcp v0.1.0
 	golang.org/x/exp/jsonrpc2 v0.0.0-20250531010427-b6e5de432a8b
